@@ -1,0 +1,31 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["multiSchema"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  schemas  = ["chat"]
+}
+
+model User {
+  id       Int       @id @default(autoincrement())
+  name     String
+  messages Message[]
+
+  @@map("user")
+  @@schema("chat")
+}
+
+model Message {
+  id     Int    @id @default(autoincrement())
+  text   String
+  userId Int    @map("userId")
+  date   Int
+  likes  Json[]
+  user   User   @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_user")
+
+  @@map("message")
+  @@schema("chat")
+}
