@@ -11,8 +11,7 @@ function App() {
     const [loggedInUsers, setLoggedInUsers] = useState([]);
 
     const fetchData = async () => {
-        const usersRes = await axios.get('http://localhost:4000/api/users');
-        console.log(usersRes)
+        const usersRes = await axios.get('http://localhost:4000/api/users');       
         setUsers(usersRes.data.users);
         setLoggedInUsers(usersRes.data.loggedInUsers);
     };
@@ -21,7 +20,7 @@ function App() {
 
         fetchData();
         socket.on('updateLoggedUsers', (users) => {
-            console.log(users)
+            fetchData();
             setLoggedInUsers(users);
         });
 
@@ -37,8 +36,6 @@ function App() {
             <ul>
                 {users.map((u) => {
                     const isOnline = loggedInUsers.find((lu) => lu.id === u.id);
-                    console.log(loggedInUsers)
-                    console.log(isOnline)
                     return (
                         <li key={u.id} className={isOnline ? 'online' : 'offline'}>
                             <span className="status-indicator"></span>

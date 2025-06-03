@@ -215,7 +215,6 @@ function App() {
 
 //modal za prijavo uporabnika
 function LoginModal({ onLogin, error, setError }) {
-  console.log("object")
   const [name, setName] = useState('');
 
   const handleSubmit = async (e) => {

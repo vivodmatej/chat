@@ -6,7 +6,6 @@ const {  getUsers } = require('../loggedInUsers');
 // pridobi vse uporabnike
 router.get('/', async (req, res) => {
   const users = await prisma.user.findMany();
-  console.log({line:"8", a:getUsers()})
   const data={users, loggedInUsers:getUsers()}
   res.json(data);
 });
